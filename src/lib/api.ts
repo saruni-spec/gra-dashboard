@@ -96,21 +96,26 @@ export async function getLeads(page: number = 1, limit: number = 10): Promise<{ 
   }
 }
 
-export async function triggerScrape(location: string, category: string): Promise<{ success: boolean; message: string }> {
+export async function triggerScrape(location: string, category: string): Promise<{ success: boolean; message: string; leadsFound?: number }> {
   try {
     const res = await fetch(`${BASE_URL}/osint/scrape`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ location, category }),
+      body: JSON.stringify({ location, businessType: category }),
     });
     
     if (!res.ok) {
       throw new Error("Failed to trigger scrape");
     }
     
-    return await res.json();
+    const data = await res.json();
+    return { 
+      success: true, 
+      message: data.message || "Scrape completed successfully", 
+      leadsFound: data.leadsFound 
+    };
   } catch (error) {
     console.error("Error triggering scrape:", error);
     return { success: false, message: "Failed to connect to backend." };

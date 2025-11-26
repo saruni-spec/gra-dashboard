@@ -15,12 +15,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import { useRouter } from "next/navigation";
+
 export function ScrapeTrigger() {
   const [location, setLocation] = useState("");
   const [category, setCategory] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   const handleScrape = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,10 +31,19 @@ export function ScrapeTrigger() {
     setMessage("");
     try {
       const result = await triggerScrape(location, category);
-      setMessage(result.message);
-      // Close dialog after success (optional, or keep open to show message)
+      
       if (result.success) {
+        const successMsg = result.leadsFound !== undefined 
+          ? `Success! Found ${result.leadsFound} new leads.` 
+          : result.message;
+        setMessage(successMsg);
+        
+        // Refresh the page to show new leads
+        router.refresh();
+        
         setTimeout(() => setIsOpen(false), 2000);
+      } else {
+        setMessage(result.message);
       }
     } catch (error) {
       setMessage("Failed to start scraping job.");
@@ -43,7 +55,7 @@ export function ScrapeTrigger() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="w-full">
+        <Button className="w-[200px]">
           <Search className="mr-2 h-4 w-4" />
           Find New Leads
         </Button>

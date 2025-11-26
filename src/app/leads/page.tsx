@@ -17,7 +17,7 @@ export default async function LeadsPage({
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Lead Management (OSINT)</h2>
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Leads</h2>
         <ScrapeTrigger />
       </div>
       
