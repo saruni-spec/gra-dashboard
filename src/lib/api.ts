@@ -1,6 +1,6 @@
 // API client for fetching data from the backend
 
-const BASE_URL = "http://localhost:4000/api/v1";
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export interface DashboardStats {
   totalUsers: number;
