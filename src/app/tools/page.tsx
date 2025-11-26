@@ -5,7 +5,7 @@ export default function ToolsPage() {
   const tools = [
     { name: "Tax Calculator", icon: Calculator, desc: "Quick tax estimation tool" },
     { name: "Schedule Meeting", icon: Calendar, desc: "Book appointments with taxpayers" },
-    { name: "Email Blast", icon: Mail, desc: "Send bulk notifications" },
+    { name: "WhatsApp Blast", icon: Mail, desc: "Send bulk notifications" },
     { name: "Report Generator", icon: FileText, desc: "Create custom PDF reports" },
   ];
 
