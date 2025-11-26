@@ -67,9 +67,10 @@ export interface Lead {
   status: "New" | "Contacted" | "Onboarded";
 }
 
-export async function getLeads(): Promise<Lead[]> {
+export async function getLeads(page: number = 1, limit: number = 10): Promise<{ leads: Lead[]; total: number }> {
   try {
-    const res = await fetch(`${BASE_URL}/osint/leads?minConfidence=0.30&limit=10&offset=0`, { cache: 'no-store' });
+    const offset = (page - 1) * limit;
+    const res = await fetch(`${BASE_URL}/osint/leads?minConfidence=0.30&limit=${limit}&offset=${offset}`, { cache: 'no-store' });
     if (!res.ok) {
       throw new Error("Failed to fetch leads");
     }
@@ -77,7 +78,7 @@ export async function getLeads(): Promise<Lead[]> {
   
     // Transform backend data to match frontend interface if necessary
     // Assuming backend returns array of leads matching the interface mostly
-    return data.leads.map((lead: any) => ({
+    const leads = data.leads.map((lead: any) => ({
       id: lead.id,
       businessName: lead.businessName,
       phoneNumber: lead.phoneNumber || lead.normalizedPhone,
@@ -87,9 +88,11 @@ export async function getLeads(): Promise<Lead[]> {
       source: lead.source,
       status: lead.isOnboarded ? "Onboarded" : "New", 
     }));
+
+    return { leads, total: data.pagination?.total || leads.length };
   } catch (error) {
     console.error("Error fetching leads:", error);
-    return [];
+    return { leads: [], total: 0 };
   }
 }
 

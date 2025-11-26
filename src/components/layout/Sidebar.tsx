@@ -38,6 +38,14 @@ export function Sidebar() {
         <Menu className="h-6 w-6" />
       </button>
 
+      {/* Backdrop */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 z-30 bg-black/50 md:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
       <div className={cn(
         "fixed inset-y-0 left-0 z-40 w-64 bg-slate-900 text-white transform transition-transform duration-200 ease-in-out md:translate-x-0",
         isOpen ? "translate-x-0" : "-translate-x-full"

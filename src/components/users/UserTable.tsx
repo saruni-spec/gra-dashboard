@@ -17,7 +17,7 @@ interface UserTableProps {
 
 export function UserTable({ users }: UserTableProps) {
   return (
-    <div className="rounded-md border bg-white">
+    <div className="rounded-md border bg-white overflow-x-auto">
       <Table>
         <TableHeader>
           <TableRow>
