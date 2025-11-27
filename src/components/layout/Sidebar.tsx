@@ -10,7 +10,8 @@ import {
   FileText, 
   Flag, 
   Briefcase,
-  Menu
+  Menu,
+  Receipt
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -18,6 +19,7 @@ import { useState } from "react";
 const navItems = [
   { name: "Analytics", href: "/", icon: LayoutDashboard },
   { name: "Users", href: "/users", icon: Users },
+  { name: "Transactions", href: "/transactions", icon: Receipt },
   { name: "Leads (OSINT)", href: "/leads", icon: MapPin },
   { name: "Risk Assessment", href: "/risk", icon: ShieldAlert },
   { name: "Tax Compliance", href: "/compliance", icon: FileText },

@@ -121,3 +121,102 @@ export async function triggerScrape(location: string, category: string): Promise
     return { success: false, message: "Failed to connect to backend." };
   }
 }
+
+// Transaction types and interfaces
+export interface Transaction {
+  id: string;
+  userId: string;
+  type: 'INCOME' | 'EXPENSE' | 'TAX';
+  category: string;
+  amount: string;
+  currency: string;
+  item: string | null;
+  units: string | null;
+  rawText: string | null;
+  confidenceScore: number | null;
+  createdAt: string;
+  updatedAt: string;
+  user?: {
+    id: string;
+    firstName: string | null;
+    lastName: string | null;
+    phoneNumber: string;
+    businessName: string | null;
+  };
+}
+
+export interface TransactionsSummary {
+  totalIncome: string;
+  totalExpenses: string;
+  totalTaxes: string;
+  netProfit: string;
+  transactionCount: number;
+  currency: string;
+  incomeTrend: { date: string; amount: number }[];
+  expensesTrend: { date: string; amount: number }[];
+  taxesTrend: { date: string; amount: number }[];
+}
+
+export async function getTransactionsSummary(startDate?: string, endDate?: string): Promise<TransactionsSummary> {
+  try {
+    const params = new URLSearchParams();
+    if (startDate) params.append('startDate', startDate);
+    if (endDate) params.append('endDate', endDate);
+    
+    const url = `${BASE_URL}/transactions/summary${params.toString() ? '?' + params.toString() : ''}`;
+    const res = await fetch(url, { cache: 'no-store' });
+    
+    if (!res.ok) {
+      throw new Error("Failed to fetch transactions summary");
+    }
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching transactions summary:", error);
+    return {
+      totalIncome: "0.00",
+      totalExpenses: "0.00",
+      totalTaxes: "0.00",
+      netProfit: "0.00",
+      transactionCount: 0,
+      currency: "GHS",
+      incomeTrend: [],
+      expensesTrend: [],
+      taxesTrend: []
+    };
+  }
+}
+
+export async function getAllTransactions(filters?: {
+  type?: 'INCOME' | 'EXPENSE' | 'TAX';
+  search?: string;
+  startDate?: string;
+  endDate?: string;
+  limit?: number;
+  offset?: number;
+}): Promise<{ transactions: Transaction[]; pagination: any }> {
+  try {
+    const params = new URLSearchParams();
+    if (filters?.type) params.append('type', filters.type);
+    if (filters?.search) params.append('search', filters.search);
+    if (filters?.startDate) params.append('startDate', filters.startDate);
+    if (filters?.endDate) params.append('endDate', filters.endDate);
+    if (filters?.limit) params.append('limit', filters.limit.toString());
+    if (filters?.offset) params.append('offset', filters.offset.toString());
+    
+    const url = `${BASE_URL}/transactions/all${params.toString() ? '?' + params.toString() : ''}`;
+    const res = await fetch(url, { cache: 'no-store' });
+    
+    if (!res.ok) {
+      throw new Error("Failed to fetch transactions");
+    }
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching transactions:", error);
+    return {
+      transactions: [],
+      pagination: { total: 0, limit: 50, offset: 0, hasMore: false }
+    };
+  }
+}
+
+
