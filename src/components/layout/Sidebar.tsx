@@ -18,9 +18,9 @@ import { useState } from "react";
 
 const navItems = [
   { name: "Analytics", href: "/", icon: LayoutDashboard },
-  { name: "Users", href: "/users", icon: Users },
+  { name: "Taxpayers", href: "/users", icon: Users },
   { name: "Transactions", href: "/transactions", icon: Receipt },
-  { name: "Leads (OSINT)", href: "/leads", icon: MapPin },
+  { name: "Find Taxpayers", href: "/leads", icon: MapPin },
   { name: "Risk Assessment", href: "/risk", icon: ShieldAlert },
   { name: "Tax Compliance", href: "/compliance", icon: FileText },
   { name: "Flags", href: "/flags", icon: Flag },

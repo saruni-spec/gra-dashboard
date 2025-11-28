@@ -52,7 +52,7 @@ export function LeadsList({ leads, total, currentPage, limit }: LeadsListProps) 
             {leads.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
-                  No leads found.
+                  No taxpayers found.
                 </TableCell>
               </TableRow>
             ) : (
@@ -84,7 +84,7 @@ export function LeadsList({ leads, total, currentPage, limit }: LeadsListProps) 
       {/* Pagination Controls */}
       <div className="flex items-center justify-between">
         <div className="text-sm text-muted-foreground">
-          Showing {Math.min((currentPage - 1) * limit + 1, total)} to {Math.min(currentPage * limit, total)} of {total} leads
+          Showing {Math.min((currentPage - 1) * limit + 1, total)} to {Math.min(currentPage * limit, total)} of {total} taxpayers
         </div>
         <div className="flex items-center space-x-2">
           <Button

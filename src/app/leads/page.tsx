@@ -17,7 +17,7 @@ export default async function LeadsPage({
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Leads</h2>
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Taxpayers</h2>
         <ScrapeTrigger />
       </div>
       
@@ -26,7 +26,7 @@ export default async function LeadsPage({
         <div className="order-2 lg:order-2 lg:col-span-3 space-y-4">
           <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
             <div className="p-4 md:p-6">
-              <h3 className="font-semibold leading-none tracking-tight mb-4">Leads Map</h3>
+              <h3 className="font-semibold leading-none tracking-tight mb-4">Taxpayers Map</h3>
               <LeadsMapWrapper leads={leads} />
             </div>
           </div>

@@ -57,7 +57,7 @@ export function ScrapeTrigger() {
       <DialogTrigger asChild>
         <Button className="w-[200px]">
           <Search className="mr-2 h-4 w-4" />
-          Find New Leads
+          Find New Taxpayers
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
