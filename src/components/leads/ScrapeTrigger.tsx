@@ -62,9 +62,9 @@ export function ScrapeTrigger() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Trigger New Scrape Job</DialogTitle>
+          <DialogTitle>Find New Taxpayers</DialogTitle>
           <DialogDescription>
-            Start a new OSINT scraping job to find leads in a specific area.
+            Start a new job to find new taxpayers in a specific area.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleScrape} className="space-y-4 py-4">
@@ -90,7 +90,7 @@ export function ScrapeTrigger() {
           </div>
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Start Scraping
+            Search
           </Button>
           {message && (
             <p className={`text-sm mt-2 ${message.includes("Failed") ? "text-red-500" : "text-green-600"}`}>
